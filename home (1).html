@@ -1,0 +1,603 @@
+<html>
+<head>
+  <title> Lambton Bank </title>
+  <link rel="stylesheet" href="myCss.css">
+</head>
+<body>
+  <center>
+  <div id="login">
+    <div class="background"></div>
+    <div class="form-container" id="form">
+      <div class="form-content">
+        <div class="form-header">
+          <h3>LogIn Lambton Bank</h3>
+        </div>
+        <form method="post" action="" class="form">
+          <div class="input-container">
+            <input type="text" class="input" name="userId" id="userId" placeholder="Enter Username" required />
+          </div>
+          <div class="input-container">
+            <input type="password" class="input" name="Password" id="pass" placeholder="Enter Password" required/>
+          </div>
+          <input type="button" onclick="check(this.form)" name="BtnLogIn" value="Login" class="button" />
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="home">
+    <div class="background"></div>
+    <div class="form-container" id="form">
+      <div class="form-content">
+        <div class="form-header">
+          <h3> Welcome:
+            <label id="userName"></label>
+          </h3>
+          <h4> Transfer Funds </h4>
+        </div>
+        <form class="form">
+          <div class="input-container">
+            <label>From:</label>
+            <select name="Account" id="fromAccount" onchange="SelectFromAc()" class="input">
+              <option value="Saving">Saving</option>
+              <option value="Checking">Checking</option>
+            </select>
+          </div>
+          <div class="input-container">
+            <label>To:</label>
+            <select id="toAccount" class="input" onclick="showHide()">
+              <option value="Checking">Checking</option>
+              <option value="Saving">Saving</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="input-container" id="otherAccountDiv">
+            <label>Account Holder Name:</label>
+             <select class="input" id="otherAccount" onkeypress="negative(event)">
+             <select>
+          </div>
+          <div class="input-container">
+            <label>Current Balance:</label>
+            <input type="number" id="currentBalance" placeholder="Actual" class="input" readonly>
+          </div>
+
+          <div class="input-container">
+            <label>Credit Card:</label><br>
+            <pre><label>Credit Limit:</label>     <label>Available Credit:</label></pre>
+            <input type="number" id="CCLimit" placeholder="CC Limit" class="cinput" readonly>
+            <input type="number" id="CCAvailable" placeholder="Available CC" class="cinput" readonly>
+          </div>
+
+          <div class="input-container">
+            <label>Amount:</label>
+            <input type="number" id="amount" placeholder="Total Amount" onchange="calculateFinal()" onkeypress="negative(event)" class="input" />
+          </div>
+          <div class="input-container">
+            <label>Final Balance:</label>
+            <br>
+            <input type="number" id='finalBalance' placeholder="Actual" class="input" readonly>
+          </div>
+            <button type="button" onclick="tranferMoney()" class="button">Transfer</button>
+          <button type="button" onclick="viewDetail()" class="button">View Transaction Details</button>
+          <button type="button" onclick="voidCheck()" class="button">Void Check</button>
+          <button type="button" onclick="changePassword()" class="button">Change Password</button>
+          <button type="button" onclick="logOut()" class="button">Log Out</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="trasactionView">
+    <div class="background"></div>
+    <div class="form-container" id="form">
+      <div class="form-content">
+        <div class="form-header">
+            <h3>
+                Welcome
+                <label id="userNameTrans"></label>
+            </h3>
+            <h4> Transaction details </h4>
+        </div>
+      </div>
+      <form class="form table">
+          <table class="table-style" cellpadding="3">
+            <thead id="trasactionTable">
+                <tr class="table-header">
+                    <td>From</td>
+                    <td>To</td>
+                    <td>Previous Balance</td>
+                    <td>Transfer Amount</td>
+                    <td>Final Balance</td>
+                </tr>
+            </thead>
+
+        </table>
+        <button type="button" onclick="BackTotranfer()" class="button">Back</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="changePasswordView">
+    <div class="background"></div>
+    <div class="form-container" id="form">
+      <div class="form-content">
+        <div class="form-header">
+          <h3> Welcome
+            <label id="userNamePass"></label>
+          </h3>
+          <div class="form-header">
+            <h4> Change Password </h4>
+          </div>
+        </div>
+        <form class="form">
+          <div class="input-container">
+            <input type="password" id="currentPassword" placeholder="Current Password" class="input" required/>
+          </div>
+          <div class="input-container">
+            <input type="password" id="newPassword" placeholder="New Password" class="input" required/>
+          </div>
+
+          <button type="button" onclick="changePassword1()" class="button">Change Password</button>
+          <button type="button" onclick="BackTotranfer1()" class="button">Back</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</center>
+  <div id="voidCheck">
+    <div class="background"></div>
+    <div class="void-form-container" id="form">
+      <div class="form-content">
+        <div class="form-header">
+          <div class="form-header">
+            <h2> Void Check </h2>
+          </div>
+        </div>
+        <div class="form">
+          <p id="void">VOID</p>
+          <pre>
+                          <label id="userNameVoid"> </label>
+                          7 Kingnoll                Date:_________________
+                          Brampton, ON
+
+          <br>
+                          Pay to the order of: ___________________________  amount:$_________________<br>
+                          ____________________________________________________________________/100 DOLLARS<br>
+              <br>
+                    <label> TD Bank</label>
+                            7 stranford circle<br>
+                            Brampton<br>
+                            Ontario <br>
+
+          <br>
+                            "87971" <tr> "89877675" </tr><tr> "87987979898"</tr>
+          <p></p>
+          </pre>
+          <button type="button" onclick="BackTotranfer()" class="button">Back</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+  document.getElementById("home").style.display = "none";
+  document.getElementById("trasactionView").style.display = "none";
+  document.getElementById("login").style.display = "block";
+  document.getElementById("changePasswordView").style.display = "none";
+  document.getElementById("voidCheck").style.display = "none";
+  document.getElementById("otherAccountDiv").style.display = "none";
+  var user_list = [];
+  user_list["Param"] = "p";
+  user_list["bhinder"] = "b";
+  var user_acc_list = [];
+  user_acc_list["param"] = "p";
+  user_acc_list["Bhinder"] = "b";
+  var name;
+  var Param = [];
+  Param['checkingAccountBalance'] = 10000;
+  Param['savingAccountBalance'] = 20000;
+  Param['CCBalance1'] = 1000;
+  Param['CCLimit1'] = 1000;
+  Param['preCCBlance1'] = 1000;
+  var Bhinder = [];
+  Bhinder['checkingAccountBalance'] = 10000;
+  Bhinder['savingAccountBalance'] = 20000;
+  Bhinder['CCBalance1'] = 1000;
+  Bhinder['CCLimit1'] = 1000;
+  Bhinder['preCCBlance1'] = 1000;
+  function check(form)
+  {
+      var user = form.userId.value;
+      var pass = form.Password.value;
+      if(user in user_list)
+      {
+          if(user_list[user] == pass)
+          {
+            document.getElementById("home").style.display = "block";
+            document.getElementById("login").style.display = "none";
+            document.getElementById("fromAccount").value = 'Saving';
+            document.getElementById("toAccount").value = 'Checking';
+            name = user;
+            var elements = document.querySelectorAll('.'+name);
+            for (var i = 0; i < elements.length; i++)
+            {
+              elements[i].style.display = '';
+            }
+            for (var key in user_acc_list)
+            {
+              if(key != name)
+              {
+                var x = document.getElementById('otherAccount');
+                x.innerHTML = '';
+                var option = document.createElement("option");
+                option.text = key;
+                x.add(option);
+                var elements = document.querySelectorAll('.'+key);
+                for (var i = 0; i < elements.length; i++){
+                  elements[i].style.display = 'none';
+                }
+              }
+            }
+            document.getElementById("currentBalance").value = window[name]['savingAccountBalance'];
+            document.getElementById("CCLimit").value = window[name]['CCBalance1'];
+            document.getElementById("CCAvailable").value = window[name]['CCBalance1'];
+            document.getElementById("userName").innerHTML = user;
+          }
+          else
+          {
+              alert("Error: Password is incorrect")
+          }
+      }
+      else
+      {
+          alert("Error: Username is incorrect.")
+      }
+  }
+
+  function viewDetail()
+  {
+      document.getElementById("userNameTrans").innerHTML = name;
+      document.getElementById("home").style.display = "none";
+      document.getElementById("trasactionView").style.display = "block";
+  }
+
+  function BackTotranfer()
+  {
+    document.getElementById("otherAccountDiv").style.display = "none";
+    document.getElementById("voidCheck").style.display = "none";
+    document.getElementById("home").style.display = "block";
+    document.getElementById("trasactionView").style.display = "none";
+  }
+
+  function showHide(){
+    if(document.getElementById("toAccount").value == 'Other'){
+      for (var key in user_list) {
+        if(key != name){
+          var x = document.getElementById('otherAccount');
+          x.innerHTML = '';
+          var option = document.createElement("option");
+          option.text = key;
+          x.add(option);
+          var elements = document.querySelectorAll('.'+key);
+          for (var i = 0; i < elements.length; i++){
+            elements[i].style.display = 'none';
+          }
+        }
+      }
+      document.getElementById("otherAccountDiv").style.display = "block";
+    }else{
+      document.getElementById("otherAccountDiv").style.display = "none";
+    }
+  }
+  function SelectFromAc()
+  {
+      var fromAc = document.getElementById("fromAccount").value;
+      if (fromAc == "Checking")
+      {
+          document.getElementById("currentBalance").value = window[name]['checkingAccountBalance'];
+          document.getElementById("toAccount").value = 'Saving';
+      }
+      if (fromAc == "Saving")
+      {
+          document.getElementById("currentBalance").value = window[name]['savingAccountBalance'];
+          document.getElementById("toAccount").value = 'Checking';
+      }
+      document.getElementById("amount").value = '';
+      document.getElementById("finalBalance").value = '';
+      document.getElementById("currentBalance").style.backgroundColor = "white";
+      document.getElementById("finalBalance").style.backgroundColor = "white";
+  }
+
+  function calculateFinal(){
+    var currentBalance = document.getElementById("currentBalance").value;
+    document.getElementById("finalBalance").value = currentBalance;
+    document.getElementById("CCAvailable").value = window[name]['CCBalance1'];
+    var amount = document.getElementById("amount").value;
+    var fromAc = document.getElementById("fromAccount").value;
+    var toAc = document.getElementById("toAccount").value;
+    if (fromAc == toAc)
+    {
+        alert('You cannot trasfer money in same account!');
+        return;
+    }
+    else if (fromAc == "Checking")
+    {
+      if ((+window[name]['checkingAccountBalance'] + +window[name]['CCBalance1']) < amount
+        || window[name]['checkingAccountBalance'] < amount)
+      {
+        document.getElementById("finalBalance").value = Number(0);
+        var total =(+currentBalance + +window[name]['CCBalance1']);console.log(total);
+        total = (+total - +amount);console.log(total);
+        if(total >= 0){
+          document.getElementById("finalBalance").value = 0;
+          document.getElementById("CCAvailable").value = total;
+          document.getElementById("CCAvailable").parentElement.style.borderColor = "#9e9e9e";
+          document.getElementById("currentBalance").parentElement.style.borderColor = "#9e9e9e";
+          document.getElementById("finalBalance").parentElement.style.borderColor = "#9e9e9e";
+        }else{
+          document.getElementById("finalBalance").value = 0;
+          document.getElementById("CCAvailable").value = total;
+          document.getElementById("CCAvailable").parentElement.style.borderColor = "red";
+          document.getElementById("currentBalance").parentElement.style.borderColor = "red";
+          document.getElementById("finalBalance").parentElement.style.borderColor = "red";
+        }
+      }
+      else
+      {
+        document.getElementById("finalBalance").value = currentBalance - amount;
+        document.getElementById("CCAvailable").parentElement.style.borderColor = "#9e9e9e";
+        document.getElementById("currentBalance").parentElement.style.borderColor = "#9e9e9e";
+        document.getElementById("finalBalance").parentElement.style.borderColor = "#9e9e9e";
+      }
+    }
+    else if (fromAc == "Saving")
+    {
+      if ((+window[name]['savingAccountBalance'] + +window[name]['CCBalance1']) < amount
+        || window[name]['savingAccountBalance'] < amount)
+      {
+        document.getElementById("finalBalance").value = Number(0);
+        var total =(+currentBalance + +window[name]['CCBalance1']);console.log(total);
+        total = (+total - +amount);console.log(total);
+        if(total >= 0){
+          document.getElementById("finalBalance").value = 0;
+          document.getElementById("CCAvailable").value = total;
+          document.getElementById("CCAvailable").parentElement.style.borderColor = "#9e9e9e";
+          document.getElementById("currentBalance").parentElement.style.borderColor = "#9e9e9e";
+          document.getElementById("finalBalance").parentElement.style.borderColor = "#9e9e9e";
+        }else{
+          document.getElementById("finalBalance").value = 0;
+          document.getElementById("CCAvailable").value = total;
+          document.getElementById("CCAvailable").parentElement.style.borderColor = "red";
+          document.getElementById("currentBalance").parentElement.style.borderColor = "red";
+          document.getElementById("finalBalance").parentElement.style.borderColor = "red";
+        }
+      }
+      else
+      {
+          document.getElementById("finalBalance").value = currentBalance - amount;
+          document.getElementById("CCAvailable").parentElement.style.borderColor = "#9e9e9e";
+          document.getElementById("currentBalance").parentElement.style.borderColor = "#9e9e9e";
+          document.getElementById("finalBalance").parentElement.style.borderColor = "#9e9e9e";
+      }
+    }
+  }
+
+  function tranferMoney()
+  {
+    document.getElementById("otherAccountDiv").style.display = "none";
+      var curCheckingBal = window[name]['checkingAccountBalance'];
+      var curSavingBal = window[name]['savingAccountBalance'];
+      var fromAc = document.getElementById("fromAccount").value;
+      var toAc = document.getElementById("toAccount").value;
+      var amount = document.getElementById("amount").value;
+      if (fromAc == toAc)
+      {
+          alert('You cannot trasfer money in same account!');
+          return;
+      }
+      if (fromAc == "Checking" && toAc != "Other")
+      {
+        if (window[name]['checkingAccountBalance'] >= amount)
+        {
+          window[name]['savingAccountBalance'] = (+window[name]['savingAccountBalance'] + +amount);
+          window[name]['checkingAccountBalance'] = (+window[name]['checkingAccountBalance'] - +amount);
+          addToTable("Checking", "Saving", curCheckingBal, amount, window[name]['checkingAccountBalance'],name);
+        }
+        else if((+window[name]['checkingAccountBalance'] + +window[name]['CCBalance1']) >= amount && window[name]['checkingAccountBalance'] < amount)
+        {
+          window[name]['checkingAccountBalance'] = 0;
+          window[name]['savingAccountBalance'] = (+window[name]['savingAccountBalance'] + +amount);
+          window[name]['CCBalance1'] = (+window[name]['checkingAccountBalance'] + +window[name]['CCBalance1'])-amount;
+          addToTable("Checking", "Saving", curCheckingBal, amount, window[name]['checkingAccountBalance'],name);
+        }
+        else
+        {
+          alert("You do not have sufficient balance");
+          return;
+        }
+      }else if (fromAc == "Checking" && toAc == "Other"){
+        var other = document.getElementById("otherAccount").value;
+        console.log(other);
+        if (window[name]['checkingAccountBalance'] >= amount)
+        {
+          window[name]['checkingAccountBalance'] = (+window[name]['checkingAccountBalance'] - +amount);
+          window[document.getElementById("otherAccount").value]['savingAccountBalance'] = (+window[document.getElementById("otherAccount").value]['savingAccountBalance'] + +amount);
+
+          addToTable("Checking", other, curCheckingBal, amount, window[name]['checkingAccountBalance'],name);
+          var sum = (+window[other]['savingAccountBalance'] + +amount);
+          addToTable(name, 'Saving', window[other]['savingAccountBalance'], amount, sum,other);
+          window[other]['savingAccountBalance'] = sum;
+          document.querySelector('.'+other).style.display = "none";
+        }
+        else if((+window[name]['checkingAccountBalance'] + +window[name]['CCBalance1']) >= amount && window[name]['checkingAccountBalance'] < amount)
+        {
+          var total =(+window[name]['checkingAccountBalance'] + +window[name]['CCBalance1']);
+          total = (+total - +amount);
+          window[name]['checkingAccountBalance'] = 0;
+          window[name]['CCBalance1'] = total;
+          window[document.getElementById("otherAccount").value]['savingAccountBalance'] = (+window[document.getElementById("otherAccount").value]['savingAccountBalance'] + +amount);
+
+          addToTable("Checking", other, curCheckingBal, amount, window[name]['checkingAccountBalance'],name);
+          addToTable("Credit", other, window[name]['preCCBlance1'], (window[name]['preCCBlance1']-window[name]['CCBalance1']), window[name]['CCBalance1'],name);
+          var sum = (+window[other]['savingAccountBalance'] + +amount);
+          addToTable(name, 'Saving', window[other]['savingAccountBalance'], amount, sum,other);
+            window[other]['savingAccountBalance'] = sum;
+          document.querySelector('.'+other).style.display = "none";
+        }
+        else
+        {
+          alert("You do not have sufficient balance");
+          return;
+        }
+      }else if (fromAc == "Saving" && toAc == "Other")
+      {
+        var other = document.getElementById("otherAccount").value;
+          if (window[name]['savingAccountBalance'] >= amount)
+          {
+              window[name]['savingAccountBalance'] = +window[name]['savingAccountBalance'] - +amount;
+
+              addToTable("Saving", other, curSavingBal, amount, window[name]['savingAccountBalance'],name);
+              var sum = (+window[other]['savingAccountBalance'] + +amount);
+              addToTable(name, 'Saving', window[other]['savingAccountBalance'], amount, sum,other);
+              window[other]['savingAccountBalance'] = sum;
+              document.querySelector('.'+other).style.display = "none";
+          }
+          else if((+window[name]['savingAccountBalance'] + +window[name]['CCBalance1']) >= amount && window[name]['savingAccountBalance'] < amount)
+          {
+            var total =(+window[name]['savingAccountBalance'] + +window[name]['CCBalance1']);
+            total = (+total - +amount);
+            window[name]['savingAccountBalance'] = 0;
+            window[name]['CCBalance1'] = total;
+
+            addToTable("Saving", other, curCheckingBal, amount, window[name]['savingAccountBalance'],name);
+            addToTable("Credit", other, window[name]['preCCBlance1'], (window[name]['preCCBlance1']-window[name]['CCBalance1']), window[name]['CCBalance1'],name);
+            var sum = (+window[other]['savingAccountBalance'] + +amount);
+            addToTable(name, 'Saving', window[other]['savingAccountBalance'], amount, sum,other);
+            window[other]['savingAccountBalance'] = sum;
+
+          }
+          else
+          {
+              alert('Please enter valid amount.');
+              return;
+          }
+      }else if (fromAc == "Saving" && toAc != "Other"){
+          if (window[name]['savingAccountBalance'] >= amount)
+          {
+              window[name]['savingAccountBalance'] = +window[name]['savingAccountBalance'] - +amount;
+              window[name]['checkingAccountBalance'] = +window[name]['checkingAccountBalance'] + +amount;
+              addToTable("Saving", "Checking", curSavingBal, amount, window[name]['savingAccountBalance'],name);
+
+          }
+          else if((+window[name]['savingAccountBalance'] + +window[name]['CCBalance1']) >= amount && window[name]['savingAccountBalance'] < amount)
+          {
+            var total =(+window[name]['savingAccountBalance'] + +window[name]['CCBalance1']);
+            total = (+total - +amount);
+            window[name]['savingAccountBalance'] = 0;
+            window[name]['CCBalance1'] = total;
+            window[name]['checkingAccountBalance'] = +window[name]['checkingAccountBalance'] + +amount;
+            addToTable("Saving", "Checking", curCheckingBal, amount, window[name]['savingAccountBalance'],name);
+            addToTable("Credit", "Checking", window[name]['preCCBlance1'], (window[name]['preCCBlance1']-window[name]['CCBalance1']), window[name]['CCBalance1'],name);
+          }else
+          {
+              alert('Please enter valid amount.');
+              return;
+          }
+      }else{
+      }
+      if(amount == '')
+      {
+        alert("Enter a amount");
+        return;
+      }
+      SelectFromAc();
+  }
+  function addToTable(from, to, curBal, amount, finBal,tableName)
+  {
+      var table = document.getElementById('trasactionTable');
+      console.log(tableName);
+      var row = table.insertRow(-1);
+      if( Number(amount) > Number(0))
+      {
+          row.style.backgroundColor = "rgb(219, 219, 219)";
+          row.className = tableName;
+
+          var cell1 = row.insertCell(0);
+          var cell2 = row.insertCell(1);
+          var cell3 = row.insertCell(2);
+          var cell4 = row.insertCell(3);
+          var cell5 = row.insertCell(4);
+
+          cell1.innerHTML = from;
+          cell2.innerHTML = to;
+          cell3.innerHTML = curBal;
+          cell4.innerHTML = amount;
+          cell5.innerHTML = finBal;
+    }
+  }
+
+  function voidCheck()
+  {
+    document.getElementById("userNameVoid").innerHTML = name;
+    document.getElementById("home").style.display = "none";
+    document.getElementById("voidCheck").style.display = "block";
+  }
+
+  function changePassword()
+  {
+    document.getElementById("userNamePass").innerHTML = name;
+    document.getElementById("home").style.display = "none";
+    document.getElementById("changePasswordView").style.display = "block";
+    document.getElementById("currentPassword").value = '';
+    document.getElementById("newPassword").value = '';
+    document.getElementById("currentPassword").style.backgroundColor = "white";
+    document.getElementById("newPassword").style.backgroundColor = "white";
+  }
+
+  function BackTotranfer1()
+  {
+    document.getElementById("changePasswordView").style.display = "none";
+    document.getElementById("home").style.display = "block";
+  }
+
+  function changePassword1()
+  {
+    var c = document.getElementById("currentPassword").value;
+    var n = document.getElementById("newPassword").value;
+
+    if(c == '' && n == '')
+    {
+      alert("Current Password and new password can not be same.");
+    }
+    else if(c == user_list[name])
+    {
+      p1 = document.getElementById("newPassword").value;
+      user_list[name] = document.getElementById("newPassword").value;
+      alert("Password changed");
+      document.getElementById("home").style.display = "block";
+      document.getElementById("changePasswordView").style.display = "none";
+    }
+    else
+    {
+      alert("Enter correct Password");
+    }
+  }
+
+  function logOut()
+  {
+    document.getElementById("home").style.display = "none";
+    document.getElementById("login").style.display = "block";
+    document.getElementById("userId").value = '';
+    document.getElementById("pass").value = '';
+    document.getElementById("userId").style.backgroundColor = "white";
+    document.getElementById("pass").style.backgroundColor = "white";
+  }
+
+  </script>
+
+</body>
+</html>
